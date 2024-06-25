@@ -1,5 +1,9 @@
 ## Computer Codes for *Applied Numerical Methods for PDEs* by Carl L. Gardner, Springer Nature 2024
 
+The WENO3 codes were developed by Jeremiah Jones and Carl Gardner, SoMSS, Arizona State University        
+     Email comments to carl.gardner@asu.edu                                     
+The WENO3 implementation is based on a Fortran code of Guan-Shan Jiang and Chi-Wang Shu
+
 The computer programs are all self-contained for simplicity of use. For example, chd.m has a built-in WENO3 solver identical to the one in weno3.m.
 
 **burgers1.m** conservative upwind method and four versions of the Lax-Friedrichs method for the inviscid Burgers equation
