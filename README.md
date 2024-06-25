@@ -1,4 +1,4 @@
-Computer Codes for Applied Numerical Methods for PDEs by Carl L. Gardner
+Computer Codes for Applied Numerical Methods for PDEs by Carl L. Gardner, Springer Nature 2024
 
 The computer programs are all self-contained for simplicity of use. For example, chd.m has a built-in WENO3 solver identical to the one in weno3.m.
 
