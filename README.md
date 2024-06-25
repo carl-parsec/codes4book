@@ -4,15 +4,15 @@ The computer programs are all self-contained for simplicity of use. For example,
 
 **burgers1.m** conservative upwind method and four versions of the Lax-Friedrichs method for the inviscid Burgers equation
 
-burgers3.m WENO3 method for the inviscid Burgers equation
+**burgers3.m** WENO3 method for the inviscid Burgers equation
 
-bvp.m solves a linear BVP using central differences and a tridiagonal direct solve
+**bvp.m** solves a linear BVP using central differences and a tridiagonal direct solve
 
-chd.m WENO3 method for the classical hydrodynamic model for semiconductor devices
+**chd.m** WENO3 method for the classical hydrodynamic model for semiconductor devices
 
-diffusion0.m backward Euler method for the linear diffusion equation with fixed timestep and Dirichlet BCs
+**diffusion0.m** backward Euler method for the linear diffusion equation with fixed timestep and Dirichlet BCs
 
-diffusion1.m TRBDF2 method for the linear diffusion equation with fixed timestep and Dirichlet BCs
+**diffusion1.m** TRBDF2 method for the linear diffusion equation with fixed timestep and Dirichlet BCs
 
 diffusion2.m TRBDF2 method for the linear diffusion equation with dynamic timestep and Dirichlet BCs
 
@@ -56,9 +56,9 @@ nonlin_laplace.m solves the 2D nonlinear Laplace equation with Dirichlet BCs usi
 
 pendulum.m plots the phase space diagram/direction field for the nonlinear pendulum
 
-rk2.m solves the IVP 𝑑𝑤/𝑑𝑡 = 𝑓 (𝑤) using second-order Runge-Kutta with fixed timestep
+rk2.m solves the IVP 𝑑𝑤/𝑑𝑡 = 𝑓(𝑤) using second-order Runge-Kutta with fixed timestep
 
-rk2dyn.m solves the IVP 𝑑𝑤/𝑑𝑡 = 𝑓 (𝑤) using second-order Runge-Kutta with dynamic timestep
+rk2dyn.m solves the IVP 𝑑𝑤/𝑑𝑡 = 𝑓(𝑤) using second-order Runge-Kutta with dynamic timestep
 
 shaw.m solves the Shaw equations using fourth/fifth-order Runge-Kutta 
 
