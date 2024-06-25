@@ -1,8 +1,7 @@
 ## Computer Codes for *Applied Numerical Methods for PDEs* by Carl L. Gardner, Springer Nature 2024
 
-The WENO3 codes were developed by Jeremiah Jones and Carl Gardner, SoMSS, Arizona State University        
-     Email comments to carl.gardner@asu.edu                                     
-The WENO3 implementation is based on a Fortran code of Guan-Shan Jiang and Chi-Wang Shu
+The WENO3 codes were developed by Jeremiah Jones and Carl Gardner, SoMSS, Arizona State University    
+     Email comments to carl.gardner@asu.edu
 
 The computer programs are all self-contained for simplicity of use. For example, chd.m has a built-in WENO3 solver identical to the one in weno3.m.
 
@@ -18,11 +17,11 @@ The computer programs are all self-contained for simplicity of use. For example,
 
 **diffusion1.m** TRBDF2 method for the linear diffusion equation with fixed timestep and Dirichlet BCs
 
-diffusion2.m TRBDF2 method for the linear diffusion equation with dynamic timestep and Dirichlet BCs
+**diffusion2.m** TRBDF2 method for the linear diffusion equation with dynamic timestep and Dirichlet BCs
 
-diffusionNBC.m TRBDF2 method for the linear diffusion equation with dynamic timestep and homogeneous Neumann BCs
+**diffusionNBC.m** TRBDF2 method for the linear diffusion equation with dynamic timestep and homogeneous Neumann BCs
 
-diffusion2D.m TRBDF2 method for the 2D linear diffusion equation with fixed timestep for movie and Dirichlet BCs
+**diffusion2D.m** TRBDF2 method for the 2D linear diffusion equation with fixed timestep for movie and Dirichlet BCs
 
 ivp.m solves the IVP 𝑑𝑦/𝑑𝑡 = −𝑦, 𝑦(0) = 𝑦0, using forward Euler, backward Euler, and TR
 
@@ -66,13 +65,13 @@ rk2dyn.m solves the IVP 𝑑𝑤/𝑑𝑡 = 𝑓(𝑤) using second-order Runge-
 
 shaw.m solves the Shaw equations using fourth/fifth-order Runge-Kutta 
 
-wave1.m solves the first-order wave equation using the original upwind method 
+**wave1.m** solves the first-order wave equation using the original upwind method 
 
-wave2.m solves the second-order wave equation as a first-order system using the Lax-Friedrichs or Lax-Wendroff method
+**wave2.m** solves the second-order wave equation as a first-order system using the Lax-Friedrichs or Lax-Wendroff method
 
-wave3.m solves the first-order wave equation using the WENO3 method 
+**wave3.m** solves the first-order wave equation using the WENO3 method 
 
-weno3.m solves 1D gas dynamical Riemann problems using the WENO3 method with Lax-Friedrichs flux splitting
+**weno3.m** solves 1D gas dynamical Riemann problems using the WENO3 method with Lax-Friedrichs flux splitting
 
 
 
