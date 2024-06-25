@@ -1,4 +1,4 @@
-## Computer Codes for *Applied Numerical Methods for PDEs* by Carl L. Gardner, Springer Nature 2024
+## Computer Codes for *Applied Numerical Methods for PDEs* by Carl L. Gardner, Springer Nature
 
 The WENO3 codes were developed by Jeremiah Jones and Carl Gardner, SoMSS, Arizona State University    
      Email comments to carl.gardner@asu.edu
