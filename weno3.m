@@ -40,7 +40,7 @@ function weno3(rhol,ul,pl,rhor,ur,pr,gamma,tf,N,cfl,method)
 
 % Developed by Jeremiah Jones and Carl Gardner, Arizona State University.
 %     Email comments to carl.gardner@asu.edu
-% WENO implementation based on a Fortran code of Guan-Shan Jiang and 
+% WENO implementation based on a Fortran code of Guang-Shan Jiang and 
 % Chi-Wang Shu.
 
 % NOTES:
