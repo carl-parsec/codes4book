@@ -1,4 +1,4 @@
-## Computer Codes for *Applied Numerical Methods for PDEs* by Carl L. Gardner, Springer Nature
+## Computer Codes for *Applied Numerical Methods for PDEs* by Carl L. Gardner, Springer (2024)
 
 Email comments to 
      carl.gardner@asu.edu
