@@ -3,9 +3,9 @@
 Email comments to 
      carl.gardner@asu.edu
 
-The computer programs are all self-contained for simplicity of use. For example, chd.m has a built-in WENO3 solver identical to the one in weno3.m.
+The computer programs are all self-contained for simplicity of use. For example, **chd.m** has a built-in WENO3 solver identical to the one in **weno3.m**.
 
-The WENO3 solver was developed by Jeremiah Jones and Carl Gardner, SoMSS, Arizona State University
+The WENO3 solver was developed by Jeremiah Jones and Carl Gardner, SoMSS, Arizona State University.
 
 **burgers1.m** conservative upwind method and four versions of the Lax-Friedrichs method for the inviscid Burgers equation
 
