@@ -1,4 +1,4 @@
-## Computer Codes for *Applied Numerical Methods for Partial Differential Equations* by Carl L. Gardner, Springer (October 2024)
+## Computer Codes for *Applied Numerical Methods for Partial Differential Equations* by Carl L. Gardner, Springer (November 2024)
 
 Email comments to 
      carl.gardner@asu.edu
