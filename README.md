@@ -7,7 +7,7 @@ The computer programs are all self-contained for simplicity of use. For example,
 
 The WENO3 solver was developed by Jeremiah Jones and Carl Gardner, SoMSS, Arizona State University.
 
-https://math.la.asu.edu/~gardner/public/CenAjet.pdf
+https://math.la.asu.edu/~gardner/public_html/CenAjet.pdf
 
 ---
 
