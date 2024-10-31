@@ -97,7 +97,7 @@ fprintf('\ttf = %g\n',tf);
 
 dx = xmax/Nx;
 dy = ymax/Ny;
-fprintf('dx = %g, dy = %g\n',dx,dy);
+fprintf('\tdx = %g, dy = %g\n',dx,dy);
 x = (0:dx:xmax)'; y = (0:dy:ymax)'; % grid points
 
 % allocate memory for solution array
@@ -110,16 +110,20 @@ pamb = rhoamb*Tamb;
 Eamb =  pamb/(gamma - 1) + 0.5*rhoamb*(uamb^2 + vamb^2);
 
 % jet parameters
+fprintf('\tjetwidth = %g\n',jetwidth);
 yjet1 = ymax/2 - jetwidth/2;
 yjet2 = ymax/2 + jetwidth/2;
-j1 = round(yjet1/dy)+1;
-j2 = round(yjet2/dy)+1;
+fprintf('\tyjet1 = %g, yjet2 = %g\n',yjet1,yjet2);
+j1 = ceil(yjet1/dy) + 1;
+j2 = floor(yjet2/dy) + 1;
+fprintf('\tj1 = %g, j2 = %g\n',j1,j2);
+fprintf('\tadjusted [y1,y2] = [%g,%g]\n',y(j1),y(j2));
 mxjet = rhojet*ujet;
 myjet = rhojet*vjet;
 pjet = rhojet*Tjet;
 Ejet = pjet/(gamma - 1) + 0.5*rhojet*(ujet^2 + vjet^2);
 
-fprintf('P_jet = %g, P_amb = %g\n',pjet,pamb);
+fprintf('\tP_jet = %g, P_amb = %g\n',pjet,pamb);
 
 % set up initial conditions
 q(1:Nx+1,1:Ny+1,1) = rhoamb;
@@ -141,40 +145,56 @@ n = 0;
 t = 0;
 while t < tf
     n = n + 1;
-    % compute dt 
+    % compute dt
     [alphax,alphay] = max_char_speed(q,p,gamma);
     dt = cfl/(alphax/dx + alphay/dy);
     if 1.01*dt >= tf - t
         dt = tf - t;
     end
     t = t + dt;
-    
-    % RK3 timestep for dq/dt = rhs = -df/dx
-    q1 = q + dt*rhs(X,Nx,Ny,dx,q,p,gamma,alphax);
-    q1 = enforce_jet_BCs(j1,j2,q1,rhojet,mxjet,myjet,Ejet);
-    p1 = pressure(q1,gamma);
-    [alphax,~] = max_char_speed(q1,p1,gamma);
-    q2 = 0.75*q + 0.25*(q1 + dt*rhs(X,Nx,Ny,dx,q1,p1,gamma,alphax));
-    q2 = enforce_jet_BCs(j1,j2,q2,rhojet,mxjet,myjet,Ejet);
-    p2 = pressure(q2,gamma);
-    [alphax,~] = max_char_speed(q2,p2,gamma);
-    q = (q + 2*(q2 + dt*rhs(X,Nx,Ny,dx,q2,p2,gamma,alphax)))/3;
-    q = enforce_jet_BCs(j1,j2,q,rhojet,mxjet,myjet,Ejet);
-    p = pressure(q,gamma);
-    [~,alphay] = max_char_speed(q,p,gamma);
 
-    % RK3 timestep for dq/dt = rhs = -dg/dy
-    q1 = q + dt*rhs(Y,Nx,Ny,dy,q,p,gamma,alphay);
+    % RK3 timestep for dq/dt = -(df/dx + dg/dy)
+    q1 = q + dt*rhs(X,Nx,Ny,dx,q,p,gamma,alphax) + ...
+        + dt*rhs(Y,Nx,Ny,dy,q,p,gamma,alphay);
     q1 = enforce_jet_BCs(j1,j2,q1,rhojet,mxjet,myjet,Ejet);
     p1 = pressure(q1,gamma);
-    [~,alphay] = max_char_speed(q1,p1,gamma);
-    q2 = 0.75*q + 0.25*(q1 + dt*rhs(Y,Nx,Ny,dy,q1,p1,gamma,alphay));
+    q2 = 0.75*q + 0.25*(q1 + dt*rhs(X,Nx,Ny,dx,q1,p1,gamma,alphax) + ...
+        dt*rhs(Y,Nx,Ny,dy,q1,p1,gamma,alphay));
     q2 = enforce_jet_BCs(j1,j2,q2,rhojet,mxjet,myjet,Ejet);
     p2 = pressure(q2,gamma);
-    [~,alphay] = max_char_speed(q1,p1,gamma);
-    q = (q + 2*(q2 + dt*rhs(Y,Nx,Ny,dy,q2,p2,gamma,alphay)))/3;
+    q = (q + 2*(q2 + dt*rhs(X,Nx,Ny,dx,q2,p2,gamma,alphax) + ...
+        + dt*rhs(Y,Nx,Ny,dy,q2,p2,gamma,alphay)))/3;
     q = enforce_jet_BCs(j1,j2,q,rhojet,mxjet,myjet,Ejet);
     p = pressure(q,gamma);
+
+    %     THIS VERSION UPDATES FIRST IN X AND THEN IN Y
+    %     MAY EXHIBIT GRID ALIGNMENT EFFECTS
+    %     % RK3 timestep for dq/dt = -df/dx
+    %     q1 = q + dt*rhs(X,Nx,Ny,dx,q,p,gamma,alphax);
+    %     q1 = enforce_jet_BCs(j1,j2,q1,rhojet,mxjet,myjet,Ejet);
+    %     p1 = pressure(q1,gamma);
+    %     [alphax,~] = max_char_speed(q1,p1,gamma);
+    %     q2 = 0.75*q + 0.25*(q1 + dt*rhs(X,Nx,Ny,dx,q1,p1,gamma,alphax));
+    %     q2 = enforce_jet_BCs(j1,j2,q2,rhojet,mxjet,myjet,Ejet);
+    %     p2 = pressure(q2,gamma);
+    %     [alphax,~] = max_char_speed(q2,p2,gamma);
+    %     q = (q + 2*(q2 + dt*rhs(X,Nx,Ny,dx,q2,p2,gamma,alphax)))/3;
+    %     q = enforce_jet_BCs(j1,j2,q,rhojet,mxjet,myjet,Ejet);
+    %     p = pressure(q,gamma);
+    %     [~,alphay] = max_char_speed(q,p,gamma);
+    %
+    %     % RK3 timestep for dq/dt += -dg/dy
+    %     q1 = q + dt*rhs(Y,Nx,Ny,dy,q,p,gamma,alphay);
+    %     q1 = enforce_jet_BCs(j1,j2,q1,rhojet,mxjet,myjet,Ejet);
+    %     p1 = pressure(q1,gamma);
+    %     [~,alphay] = max_char_speed(q1,p1,gamma);
+    %     q2 = 0.75*q + 0.25*(q1 + dt*rhs(Y,Nx,Ny,dy,q1,p1,gamma,alphay));
+    %     q2 = enforce_jet_BCs(j1,j2,q2,rhojet,mxjet,myjet,Ejet);
+    %     p2 = pressure(q2,gamma);
+    %     [~,alphay] = max_char_speed(q2,p2,gamma); % CHECK THIS!!
+    %     q = (q + 2*(q2 + dt*rhs(Y,Nx,Ny,dy,q2,p2,gamma,alphay)))/3;
+    %     q = enforce_jet_BCs(j1,j2,q,rhojet,mxjet,myjet,Ejet);
+    %     p = pressure(q,gamma);
 
     % movie
     hh = pcolor(x,y,log10(q(:,:,1)*rhobar)');
@@ -186,8 +206,13 @@ while t < tf
     colorbar;
     colormap(jet);
     getframe;
+
+    tyr = t*tbar/(3600*24*365.242199);
+    if mod(n,100) == 0
+        fprintf('t = %g yr, number of timesteps = %g\n',tyr,n);
+    end
 end
-fprintf('number of timesteps = %g\n',n);
+fprintf('tf = %g yr, number of timesteps = %g\n',tyr,n);
 
 toc;
 
@@ -345,7 +370,7 @@ end
 Fplus = WENO3(fjm1,fj,fjp1);
 
 % compute negative WENO flux
-% F(j+1/2) and F(j-1/2) stencils
+                        % F(j+1/2) and F(j-1/2) stencils
 fj = fminus(2:N+3,:);   % f(j)         f(j-1)
 fjp1 = fminus(3:N+4,:); % f(j+1)       f(j)
 fjp2 = fminus(4:N+5,:); % f(j+2)       f(j+1)
