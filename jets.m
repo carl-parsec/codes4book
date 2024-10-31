@@ -1,7 +1,7 @@
 function jets(rhojet,ujet,vjet,Tjet,rhoamb,uamb,vamb,Tamb,gamma, ...
     xmax,ymax,jetwidth,Nx,Ny,tf,cfl)
 %jets(rhojet,ujet,vjet,Tjet,rhoamb,uamb,vamb,Tamb,gamma,...
-%   xmax,ymax,jetwidth,Nx,Ny,tf,cfl) VERSION 8-20-2023 
+%   xmax,ymax,jetwidth,Nx,Ny,tf,cfl) VERSION 10-31-2024 
 % Copyright by Carl L. Gardner 2023
 % simulates 2D gas dynamical jets using 3rd-order WENO with Lax-Friedrichs
 % flux splitting.
