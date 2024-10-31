@@ -113,11 +113,14 @@ Eamb =  pamb/(gamma - 1) + 0.5*rhoamb*(uamb^2 + vamb^2);
 fprintf('\tjetwidth = %g\n',jetwidth);
 yjet1 = ymax/2 - jetwidth/2;
 yjet2 = ymax/2 + jetwidth/2;
-fprintf('\tyjet1 = %g, yjet2 = %g\n',yjet1,yjet2);
+fprintf('\t[yjet1,yjet2] = [%g,%g]\n',yjet1,yjet2);
 j1 = ceil(yjet1/dy) + 1;
 j2 = floor(yjet2/dy) + 1;
 fprintf('\tj1 = %g, j2 = %g\n',j1,j2);
-fprintf('\tadjusted [y1,y2] = [%g,%g]\n',y(j1),y(j2));
+if abs(y(j1) - yjet1) > 10^-15 || abs(y(j2) - yjet2) > 10^-15
+    fprintf('\tadjusted [yjet1,yjet2] = [%g,%g] to hit grid points\n',...
+        y(j1),y(j2));
+end
 mxjet = rhojet*ujet;
 myjet = rhojet*vjet;
 pjet = rhojet*Tjet;
@@ -166,35 +169,6 @@ while t < tf
         + dt*rhs(Y,Nx,Ny,dy,q2,p2,gamma,alphay)))/3;
     q = enforce_jet_BCs(j1,j2,q,rhojet,mxjet,myjet,Ejet);
     p = pressure(q,gamma);
-
-    %     THIS VERSION UPDATES FIRST IN X AND THEN IN Y
-    %     MAY EXHIBIT GRID ALIGNMENT EFFECTS
-    %     % RK3 timestep for dq/dt = -df/dx
-    %     q1 = q + dt*rhs(X,Nx,Ny,dx,q,p,gamma,alphax);
-    %     q1 = enforce_jet_BCs(j1,j2,q1,rhojet,mxjet,myjet,Ejet);
-    %     p1 = pressure(q1,gamma);
-    %     [alphax,~] = max_char_speed(q1,p1,gamma);
-    %     q2 = 0.75*q + 0.25*(q1 + dt*rhs(X,Nx,Ny,dx,q1,p1,gamma,alphax));
-    %     q2 = enforce_jet_BCs(j1,j2,q2,rhojet,mxjet,myjet,Ejet);
-    %     p2 = pressure(q2,gamma);
-    %     [alphax,~] = max_char_speed(q2,p2,gamma);
-    %     q = (q + 2*(q2 + dt*rhs(X,Nx,Ny,dx,q2,p2,gamma,alphax)))/3;
-    %     q = enforce_jet_BCs(j1,j2,q,rhojet,mxjet,myjet,Ejet);
-    %     p = pressure(q,gamma);
-    %     [~,alphay] = max_char_speed(q,p,gamma);
-    %
-    %     % RK3 timestep for dq/dt += -dg/dy
-    %     q1 = q + dt*rhs(Y,Nx,Ny,dy,q,p,gamma,alphay);
-    %     q1 = enforce_jet_BCs(j1,j2,q1,rhojet,mxjet,myjet,Ejet);
-    %     p1 = pressure(q1,gamma);
-    %     [~,alphay] = max_char_speed(q1,p1,gamma);
-    %     q2 = 0.75*q + 0.25*(q1 + dt*rhs(Y,Nx,Ny,dy,q1,p1,gamma,alphay));
-    %     q2 = enforce_jet_BCs(j1,j2,q2,rhojet,mxjet,myjet,Ejet);
-    %     p2 = pressure(q2,gamma);
-    %     [~,alphay] = max_char_speed(q2,p2,gamma); % CHECK THIS!!
-    %     q = (q + 2*(q2 + dt*rhs(Y,Nx,Ny,dy,q2,p2,gamma,alphay)))/3;
-    %     q = enforce_jet_BCs(j1,j2,q,rhojet,mxjet,myjet,Ejet);
-    %     p = pressure(q,gamma);
 
     % movie
     hh = pcolor(x,y,log10(q(:,:,1)*rhobar)');
