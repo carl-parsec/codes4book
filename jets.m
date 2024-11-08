@@ -2,7 +2,7 @@ function jets(rhojet,ujet,vjet,Tjet,rhoamb,uamb,vamb,Tamb,gamma, ...
     xmax,ymax,jetwidth,Nx,Ny,tf,cfl)
 %jets(rhojet,ujet,vjet,Tjet,rhoamb,uamb,vamb,Tamb,gamma,...
 %   xmax,ymax,jetwidth,Nx,Ny,tf,cfl) VERSION 10-31-2024 
-% Copyright by Carl L. Gardner 2023
+% Copyright by Carl L. Gardner 2023-2024
 % simulates 2D gas dynamical jets using 3rd-order WENO with Lax-Friedrichs
 % flux splitting.
 %       rho in H/cm^3, velocity = (u,v) in km/s, T = temperature in K
@@ -303,9 +303,9 @@ function F = WENO_flux_1d(SWEEP,N,q,p,gamma,alpha)
 % F = WENO_flux(SWEEP,N,q,p,~,alpha) % gamma
 % WENO method using WENO3()
 % through-flow BCs with ghost points
-
 X = 1; % X SWEEP
 Y = 2; % Y SWEEP
+
 qghost = [q(1,:);q(1,:);q;q(N+1,:);q(N+1,:)];
 pghost = [p(1);p(1);p;p(N+1);p(N+1)];
 if SWEEP == X
