@@ -7,6 +7,8 @@ The computer programs are all self-contained for simplicity of use. For example,
 
 The WENO3 solver was developed by Jeremiah Jones and Carl Gardner, SoMSS, Arizona State University.
 
+**Errata and Clarifications** for the Book are in the file **errata.pdf**.
+
 ---
 
 **burgers1.m** conservative upwind method and four versions of the Lax-Friedrichs method for the inviscid Burgers equation
